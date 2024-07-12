@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{Contest.Name}}</title>
+    <style>
+        .btn:link,
+        .btn:visited {
+        text-transform: uppercase;
+        text-decoration: none;
+        color: rgb(27, 27, 27);
+        padding: 10px 30px;
+        border: 1px solid;
+        border-radius: 1000px;
+        display: inline-block;
+        transition: all .2s;
+        position: relative;
+        }
+
+        .btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(27, 27, 27, .5);
+        }
+
+        .btn:active {
+        transform: translateY(-3px);
+        }
+
+        .btn::after {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        border-radius: 100px;
+        top: 0;
+        left: 0;
+        position: absolute;
+        z-index: -1;
+        transition: all .3s;
+        }
+
+        .btn:hover::after {
+        background-color: rgb(0, 238, 255);
+        transform: scaleX(1.4) scaleY(1.5);
+        opacity: 0;
+        }
+    </style>
+
+</head>
+<body>
+    <span class="countdown font-mono text-2xl">
+        <span style="--value:10;"></span>
+        h
+        <span style="--value:24;"></span>
+        m
+        <span style="--value:${counter};"></span>
+        s
+      </span>
+    <a href="#" class="btn" id = "logbtn"> Click Me</a>
+    <div id="timeElapsed">Time elapsed: 0 seconds</div>
+    <h1> Contest : {{Contest.Name}} </h1>
+    <h2> Questions : </h2>
+    <ol>
+    {%for q in Contest.Questions.all %}
+    <li> <a href = "http://127.0.0.1:8000/question/{{q.pk}}"> {{q.Name}} </a></li>
+    {%endfor%} 
+    </ol>   
+<script>
+
+const logbutton = document.getElementById('logbtn')
+const User_Name =  '{{User}}'
+if( User_Name  == 'AnonymousUser')
+    {
+        logbutton.textContent = 'Login'
+        logbutton.href = 'http://127.0.0.1:8000/login/login'
+    }
+else 
+    {
+        logbutton.textContent = 'LOGOUT'
+        logbutton.href = 'http://127.0.0.1:8000/login/logout'
+    }
+ 
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Specify the date-time you want to count from (in UTC format)
+    const endDateTime = new Date("{{ Contest.end_time.isoformat }}");
+
+    // Function to update the time elapsed
+    function updateTimeElapsed() {
+        const now = new Date();
+        const timeDiff = endDateTime - now;
+        const seconds = Math.floor((timeDiff / 1000) % 60);
+        const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+        const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+        if(endDateTime > now)
+        {
+        // Calculate the time difference in seconds, minutes, hours, days
+
+        // Display the time elapsed
+        const timeElapsedElement = document.getElementById('timeElapsed');
+        timeElapsedElement.innerHTML = `Time Remaining: ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+        }
+        else 
+        {
+        const timeElapsedElement = document.getElementById('timeElapsed');
+        timeElapsedElement.innerHTML = `Contest Over`;   
+        }
+        {% comment %} <span className="countdown font-mono text-2xl">
+        <span style={{"--value":${hours}}}></span>h
+        <span style={{"--value":${minutes}}}></span>m
+        <span style={{"--value":${seconds}}}></span>s
+        </span> {% endcomment %}
+      
+    }
+
+    // Update the counter every second
+    setInterval(updateTimeElapsed, 1000);
+});
+
+</script>
+
+</body>
+</html>

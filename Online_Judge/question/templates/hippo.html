@@ -1,0 +1,32 @@
+<!-- questions/templates/questions/question_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question Detail</title>
+</head>
+<body>
+    <h1>{{ question.Name }}</h1>
+    <p><strong>Tag:</strong> {{ question.Tag }}</p>
+    <p><strong>Difficulty:</strong> {{ question.Difficulty }}</p>
+    <p><strong>Description:</strong> {{ question.Description }}</p>
+
+<h1>Code Compiler</h1>
+<form method="post" id = codeForm>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Run Code</button>
+</form>
+
+
+    <h2>Test Cases</h2>
+    <ul>
+        {% for testcase in question.testcases.all %}
+            <li>Input: {{ testcase.Input }} | Output: {{ testcase.Output }}</li>
+        {% endfor %}
+        
+    </ul>
+    
+
+</body>
+</html>
+

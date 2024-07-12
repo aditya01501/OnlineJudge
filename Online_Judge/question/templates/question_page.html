@@ -1,0 +1,71 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class = "bg-purple-950">
+     <nav class = " bg-purple-800 text-white flex justify-between">
+        <div class = "flex items-center pl-5 font-bold"> <img src = "p&p.png" class = "h-10"> </div>
+        <ul class = "px-20 py-4 flex space-x-11 justify-end">
+            <li class = "hover:cursor-pointer hover:text-purple-950"> Home </li>
+            <li class = "hover:cursor-pointer hover:text-purple-950"> About </li>
+            <li class = "hover:cursor-pointer hover:text-purple-950"> Name </li>
+        </ul>
+    </nav>
+
+    <h1>{{ question.Name }}</h1>
+    <p><strong>Tag:</strong> {{ question.Tag }}</p>
+    <p><strong>Difficulty:</strong> {{ question.Difficulty }}</p>
+    <p><strong>Description:</strong> {{ question.Description }}</p>
+
+<h1>Code Compiler</h1>
+<form method="post" id = codeForm>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Run Code</button>
+</form>
+
+<h2>Test Cases</h2>
+    <ul>
+        {% for testcase in question.testcases.all %}
+            <li>Input: {{ testcase.Input }} | Output: {{ testcase.Output }}</li>
+        {% endfor %}
+        
+    </ul>
+    
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+        $(document).ready(function(){
+            $('#codeForm').on('submit', function(event){
+                event.preventDefault(); // Prevent the form from submitting the traditional way
+                var formData = $(this).serialize(); // Serialize the form data
+                               $.ajax({
+                    url: 'http://127.0.0.1:8000/oj/{{question.question_ID}}/', // Your URL to the view that handles the form
+                    type: "POST",
+                    data: formData,
+                    success: function(response) {
+                        alert("success")
+                        console.log(response)
+                        // Handle the response from the server
+                        $('#output').html('<pre>' + response.output + '</pre>');
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle any errors
+                        console.error('Error: ' + error);
+                        alert('An error occurred while processing your request.');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+
