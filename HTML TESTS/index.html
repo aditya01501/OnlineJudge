@@ -1,199 +1,717 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Tailwind CSS Mega Menu</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet"> 
-    <link rel="stylesheet" href="styles.css">
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/python/python.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/material.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <style>
+        .socket {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  margin-left: -100px;
+  top: 50%;
+  margin-top: -100px;
+}
+
+.hex-brick {
+  background: #000000;
+  width: 30px;
+  height: 17px;
+  position: absolute;
+  top: 5px;
+  animation-name: fade00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: fade00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+.h2 {
+  transform: rotate(60deg);
+  -webkit-transform: rotate(60deg);
+}
+
+.h3 {
+  transform: rotate(-60deg);
+  -webkit-transform: rotate(-60deg);
+}
+
+.gel {
+  height: 30px;
+  width: 30px;
+  transition: all .3s;
+  -webkit-transition: all .3s;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.center-gel {
+  margin-left: -15px;
+  margin-top: -15px;
+  animation-name: pulse00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: pulse00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+}
+
+.c1 {
+  margin-left: -47px;
+  margin-top: -15px;
+}
+
+.c2 {
+  margin-left: -31px;
+  margin-top: -43px;
+}
+
+.c3 {
+  margin-left: 1px;
+  margin-top: -43px;
+}
+
+.c4 {
+  margin-left: 17px;
+  margin-top: -15px;
+}
+
+.c5 {
+  margin-left: -31px;
+  margin-top: 13px;
+}
+
+.c6 {
+  margin-left: 1px;
+  margin-top: 13px;
+}
+
+.c7 {
+  margin-left: -63px;
+  margin-top: -43px;
+}
+
+.c8 {
+  margin-left: 33px;
+  margin-top: -43px;
+}
+
+.c9 {
+  margin-left: -15px;
+  margin-top: 41px;
+}
+
+.c10 {
+  margin-left: -63px;
+  margin-top: 13px;
+}
+
+.c11 {
+  margin-left: 33px;
+  margin-top: 13px;
+}
+
+.c12 {
+  margin-left: -15px;
+  margin-top: -71px;
+}
+
+.c13 {
+  margin-left: -47px;
+  margin-top: -71px;
+}
+
+.c14 {
+  margin-left: 17px;
+  margin-top: -71px;
+}
+
+.c15 {
+  margin-left: -47px;
+  margin-top: 41px;
+}
+
+.c16 {
+  margin-left: 17px;
+  margin-top: 41px;
+}
+
+.c17 {
+  margin-left: -79px;
+  margin-top: -15px;
+}
+
+.c18 {
+  margin-left: 49px;
+  margin-top: -15px;
+}
+
+.c19 {
+  margin-left: -63px;
+  margin-top: -99px;
+}
+
+.c20 {
+  margin-left: 33px;
+  margin-top: -99px;
+}
+
+.c21 {
+  margin-left: 1px;
+  margin-top: -99px;
+}
+
+.c22 {
+  margin-left: -31px;
+  margin-top: -99px;
+}
+
+.c23 {
+  margin-left: -63px;
+  margin-top: 69px;
+}
+
+.c24 {
+  margin-left: 33px;
+  margin-top: 69px;
+}
+
+.c25 {
+  margin-left: 1px;
+  margin-top: 69px;
+}
+
+.c26 {
+  margin-left: -31px;
+  margin-top: 69px;
+}
+
+.c27 {
+  margin-left: -79px;
+  margin-top: -15px;
+}
+
+.c28 {
+  margin-left: -95px;
+  margin-top: -43px;
+}
+
+.c29 {
+  margin-left: -95px;
+  margin-top: 13px;
+}
+
+.c30 {
+  margin-left: 49px;
+  margin-top: 41px;
+}
+
+.c31 {
+  margin-left: -79px;
+  margin-top: -71px;
+}
+
+.c32 {
+  margin-left: -111px;
+  margin-top: -15px;
+}
+
+.c33 {
+  margin-left: 65px;
+  margin-top: -43px;
+}
+
+.c34 {
+  margin-left: 65px;
+  margin-top: 13px;
+}
+
+.c35 {
+  margin-left: -79px;
+  margin-top: 41px;
+}
+
+.c36 {
+  margin-left: 49px;
+  margin-top: -71px;
+}
+
+.c37 {
+  margin-left: 81px;
+  margin-top: -15px;
+}
+
+.r1 {
+  animation-name: pulse00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: .2s;
+  -webkit-animation-name: pulse00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-delay: .2s;
+}
+
+.r2 {
+  animation-name: pulse00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: .4s;
+  -webkit-animation-name: pulse00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-delay: .4s;
+}
+
+.r3 {
+  animation-name: pulse00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: .6s;
+  -webkit-animation-name: pulse00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-delay: .6s;
+}
+
+.r1 > .hex-brick {
+  animation-name: fade00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: .2s;
+  -webkit-animation-name: fade00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-delay: .2s;
+}
+
+.r2 > .hex-brick {
+  animation-name: fade00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: .4s;
+  -webkit-animation-name: fade00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-delay: .4s;
+}
+
+.r3 > .hex-brick {
+  animation-name: fade00;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-delay: .6s;
+  -webkit-animation-name: fade00;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-delay: .6s;
+}
+
+@keyframes pulse00 {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  50% {
+    -webkit-transform: scale(0.01);
+    transform: scale(0.01);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes fade00 {
+  0% {
+    background: #ffffff;
+  }
+
+  50% {
+    background: #7E22CE;
+  }
+
+  100% {
+    background: #6B21A8;
+  }
+}
+
+    </style>
 </head>
-<body class="font-sans leading-normal tracking-normal">
-<nav class="relative bg-white border-b-2 border-gray-300 text-gray-900">
-  <div class="container mx-auto flex justify-between">
-    <div class="relative block p-4 lg:p-6 text-xl text-blue-600 font-bold">TestX</div>
-    <ul class="flex items-center">
-	
-      <!--Regular Link-->
-      <li class="hover:bg-blue-800 hover:text-white">
-        <a href="/login/login" class="relative block py-6 px-2 lg:p-6 text-sm lg:text-base font-bold" id = 'login'>Log In</a>
-      </li>
-      <li class="hover:bg-blue-800 hover:text-white">
-        <a href="/contest/list" class="relative block py-6 px-2 lg:p-6 text-sm lg:text-base font-bold" id = 'login'>Contests</a>
-      </li>
-	    <li class="hover:bg-blue-800 hover:text-white mr-4">
-        <a href="/questions/homepage" class="relative block py-6 px-2 lg:p-6 text-sm lg:text-base font-bold" id = 'login'>Questions</a>
-      </li>
-	  
-      <li>
-      <a href = '#'>
-      <img class="relative block w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="/docs/images/people/profile-picture-5.jpg" alt="Bordered avatar">
-      </a>
-      </li>
-	  
-      <!--Toggleable Link-->
-      
-		  
-          <!-- ## Toggleable Link Template ##
-      
-		  <li class="toggleable"><input type="checkbox" value="selected" id="toggle-xxx" class="toggle-input"><label for="toggle-xxx" class="cursor-pointer">Click</label><div role="toggle" class="mega-menu">
-			Add your mega menu content
-			</div></li>
-		  
-		  -->
-		  
-          <!--Hoverable Link-->
-          
-		  
-          <!-- ## Hoverable Link Template ##
-      
-		  <li class="hoverable hover:bg-blue-800 hover:text-white"><a href="#" class="relative block">x</a><div class="mega-menu">
-			Add your mega menu content
-			</div></li>
-		  
-		  -->
-      </ul>
-      </div>
-    </nav>
-
-    <div id="TopicCarosCont" class="pt-8 flex justify-center">
-        <div id="TopicCaros" class="carousel slide w-1/2 max-h-px: 100px" data-bs-ride="true">
-          <div class="carousel-inner h-full">
-            <div class="carousel-item active">
-              <img src="mew2.png" class="d-block w-full h-full object-cover" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="mew2.png" class="d-block w-full h-full object-cover" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="mew2.png" class="d-block w-full h-full object-cover" alt="...">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#TopicCaros" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#TopicCaros" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+<body class="bg-purple-950 text-white">
+    <nav class="bg-purple-800 text-white flex justify-between items-center p-4">
+        <div class="flex items-center font-bold">
+            <img src="p&p.png" class="h-10" alt="Logo">
+            <span class="pl-5">Your Logo</span>
         </div>
-      </div>
-      
-<div class = "leaderboard-cont">
-<div class = "chead"><p> Contest Name 1 </p></div>    
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Participant 
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Rank
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Score
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Rating
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Country
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple MacBook Pro 17"
-                </th>
-                <td class="px-6 py-4">
-                    Silver
-                </td>
-                <td class="px-6 py-4">
-                    Laptop
-                </td>
-                <td class="px-6 py-4">
-                    $2999
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Microsoft Surface Pro
-                </th>
-                <td class="px-6 py-4">
-                    White
-                </td>
-                <td class="px-6 py-4">
-                    Laptop PC
-                </td>
-                <td class="px-6 py-4">
-                    $1999
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Magic Mouse 2
-                </th>
-                <td class="px-6 py-4">
-                    Black
-                </td>
-                <td class="px-6 py-4">
-                    Accessories
-                </td>
-                <td class="px-6 py-4">
-                    $99
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Google Pixel Phone
-                </th>
-                <td class="px-6 py-4">
-                    Gray
-                </td>
-                <td class="px-6 py-4">
-                    Phone
-                </td>
-                <td class="px-6 py-4">
-                    $799
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Apple Watch 5
-                </th>
-                <td class="px-6 py-4">
-                    Red
-                </td>
-                <td class="px-6 py-4">
-                    Wearables
-                </td>
-                <td class="px-6 py-4">
-                    $999
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-</div>
+        <ul class="flex space-x-8">
+            <li class="hover:cursor-pointer hover:text-purple-950">Home</li>
+            <li class="hover:cursor-pointer hover:text-purple-950">About</li>
+            <li class="hover:cursor-pointer hover:text-purple-950">Name</li>
+        </ul>
+    </nav>
+    <div class = "my-3 py-3 align-items">{{Contest.Name}}<div>
+
+		<div class="socket">
+			<div class="gel center-gel">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c1 r1">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c2 r1">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c3 r1">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c4 r1">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c5 r1">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c6 r1">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			
+			<div class="gel c7 r2">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			
+			<div class="gel c8 r2">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c9 r2">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c10 r2">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c11 r2">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c12 r2">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c13 r2">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c14 r2">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c15 r2">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c16 r2">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c17 r2">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c18 r2">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c19 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c20 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c21 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c22 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c23 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c24 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c25 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c26 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c28 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c29 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c30 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c31 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c32 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c33 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c34 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c35 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c36 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			<div class="gel c37 r3">
+				<div class="hex-brick h1"></div>
+				<div class="hex-brick h2"></div>
+				<div class="hex-brick h3"></div>
+			</div>
+			
+		</div>
+	
+
+    <div class="max-w-6xl mx-auto py-10 px-6 bg-purple-800 rounded-lg shadow-lg">
+        <div class="flex space-x-8">
+            <!-- Left Side -->
+            <div class="w-1/2">
+                <h1 class="text-3xl font-bold mb-4">{{ question.Name }}</h1>
+                <p class="mb-2"><strong>Tag:</strong> {{ question.Tag }}</p>
+                <p class="mb-2"><strong>Difficulty:</strong> {{ question.Difficulty }}</p>
+                <p class="mb-6"><strong>Description:</strong> {{ question.Description }}</p>
+
+                <h2 class="text-xl font-semibold mt-8 mb-4">Test Cases</h2>
+                <ul class="space-y-2">
+                    {% for testcase in question.testcases.all %}
+                        <li class="bg-purple-700 p-3 rounded-md shadow-sm">Input: {{ testcase.Input }} | Output: {{ testcase.Output }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Right Side -->
+            <div class="w-1/2 flex flex-col space-y-8">
+                <!-- Code Input -->
+                <div class="bg-purple-700 p-6 rounded-md shadow-md">
+                  
+                  <div>
+                      <label for="id_code" class="block text-sm font-medium pb-">Code:</label>
+                      <textarea name="code" id="id_code" cols="40" rows="10" required class="mt-1 block w-full bg-purple-600 text-white border border-purple-500 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:ring-purple-400 focus:border-purple-400"></textarea>
+                  </div>
+                  
+                  <form method="post" id="codeForm" class="space-y-4">
+                        {% csrf_token %}
+                        <div>
+                            <label for="id_language" class="block text-sm font-medium">Language:</label>
+                            <select name="language" id="id_language" class="mt-1 block w-full bg-purple-600 text-white border border-purple-500 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:ring-purple-400 focus:border-purple-400">
+                                <option value="py">Python</option>
+                                <option value="c">C</option>
+                                <option value="cpp">C++</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="id_input_data" class="block text-sm font-medium">Input data:</label>
+                            <textarea name="input_data" id="id_input_data" cols="40" rows="5" class="mt-1 block w-full bg-purple-600 text-white border border-purple-500 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:ring-purple-400 focus:border-purple-400"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400">Run Code</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Code Output -->
+                <div class="bg-purple-700 p-6 rounded-md shadow-md">
+                    <h2 class="text-xl font-semibold mb-4">Output</h2>
+                    <div id="output" class="bg-purple-600 p-4 rounded-md shadow-md text-white"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+      var textarea = document.getElementById('id_code');
+        var editor = CodeMirror.fromTextArea(textarea, {
+            lineNumbers: true,
+            mode: 'python', // Default mode
+            theme: 'material',
+            lineWrapping: true
+        });
+        
+        function getCode() {
+            return editor.getValue();
+        }
+
+        function showLoader() {
+            $('.socket').css('display', 'block');
+        }
+
+        // Function to hide the loader
+        function hideLoader() {
+            $('.socket').css('display', 'none');
+        }
+
+        hideLoader();
+
+         $(document).ready(function(){
+            $('#codeForm').on('submit', function(event){
+                //event.preventDefault(); // Prevent the form from submitting the traditional way
+                var formData = $(this).serialize(); // Serialize the form data
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/oj/{{question.question_ID}}/', // Your URL to the view that handles the form
+                    type: "POST",
+                    data: formData,
+                    beforeSend: function() {showLoader();},
+                    timeout: 0,
+                    success: function(response) {
+                        console.log(response);
+                        hideLoader();
+                        // Handle the response from the server
+                        $('#output').html('<p>' + response.Status + '</p>');
+                        if(response.Status == "Wrong Answer")
+                        $('#output').append('<p>' + 'Wrong Answer at Test Case' + response.TestCase_ID + '</p>');
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle any errors
+                        hideLoader();
+                        console.error('Error: ' + error);
+                        alert('An error occurred while processing your request.');
+                    }
+                });
+                return false;
+            });
+            
+        }); 
 
 
+         $(document).ready(function(){
+            $('#codeForm').on('submit', function(event){
+                event.preventDefault(); // Prevent default form submission
 
-  </body>
+                // Validate CodeMirror content
+                if (!getCode().trim()) {
+                    alert('Code is required.');
+                    return;
+                }
+
+                var formData = $(this).serialize(); // Serialize other form data
+                var code = getCode(); // Get code from the editor
+                formData += '&code=' + encodeURIComponent(code); // Append code to form data
+
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/oj/{{question.question_ID}}/', // Update with your URL
+                    type: "POST",
+                    data: formData,
+                    beforeSend: function() {
+                        showLoader();
+                    },
+                    success: function(response) {
+                        hideLoader();
+                        $('#output').html('<p>' + response.Status + '</p>');
+                        if(response.Status == "Wrong Answer") {
+                            $('#output').append('<p>' + 'Wrong Answer at Test Case ' + response.TestCase_ID + '</p>');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        hideLoader();
+                        console.error('Error: ' + error);
+                        alert('An error occurred while processing your request.');
+                    }
+                });
+            });
+        });
+    </script>
+
+    </script>
+</body>
 </html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+</head>
+<body class="bg-purple-950 text-white">
+    <nav class="bg-purple-800 text-white flex justify-between items-center p-4">
+        <div class="flex items-center pl-5 font-bold">
+            <img src="p&p.png" class="h-10" alt="Logo">
+        </div>
+        <ul class="flex space-x-11 justify-end items-center pr-10">
+            <li class="hover:cursor-pointer hover:text-blue-400">Home</li>
+            <li class="hover:cursor-pointer hover:text-blue-400">About</li>
+            <li class="hover:cursor-pointer hover:text-blue-400">Name</li>
+        </ul>
+    </nav>
+
+    <div class="max-w-4xl mx-auto mt-10 bg-purple-600 p-6 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold mb-4 text-white">Contest Countdown</h1>
+        <div id="timer" class="timer" data-start="{{ Contest.start_time|date:'c' }}" data-end="{{ Contest.end_time|date:'c' }}"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto mt-10 bg-purple-600 p-6 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold mb-4 text-white">Leaderboard - {{Contest.Name}}</h1>
+        <div class="flex justify-center items-center mt-10">
+            <table class="table-auto w-full text-center text-lg bg-white rounded-lg shadow-lg">
+                <thead class="bg-purple-950 text-white">
+                    <tr>
+                        <th class="py-3 px-4 border-b">Rank</th>
+                        <th class="py-3 px-4 border-b">Name</th>
+                        <th class="py-3 px-4 border-b">Score</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard">
+                    <!-- Rows will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Example data for leaderboard, replace with your data fetching logic
+        
+        $.ajax({
+            url: 'http://127.0.0.1:8000/contest/getlbrd/{{Contest.pk}}', // Update with your URL
+            type: "GET",
+            timeout : 0,
+            contentType: 'application/json', // Fix the typo here
+            beforeSend: function() {
+            },
+            success: function(response) {
+                var leaderdata = response;
+                leaderdata.sort((a, b) => b.total_score - a.total_score);
+                populateLeaderboard(leaderdata);
+            },
+            error: function(xhr, status, error) {
+                console.log(status);
+                console.log(error);
+            }
+        });
+
+        var counter = 1;
+        function populateLeaderboard(data) {
+            const leaderboard = document.getElementById('leaderboard');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.classList.add('hover:bg-blue-100');
+                row.classList.add('hover:text-black');
+                row.classList.add('bg-purple-950');
+                row.classList.add('text-white');
+                
+                const rankCell = document.createElement('td');
+                rankCell.classList.add('py-3', 'px-4', 'border-b');
+                rankCell.textContent = counter;
+                counter++;
+                row.appendChild(rankCell);
+
+                const nameCell = document.createElement('td');
+                nameCell.classList.add('py-3', 'px-4', 'border-b');
+                nameCell.textContent = item.user__username;
+                row.appendChild(nameCell);
+
+                const scoreCell = document.createElement('td');
+                scoreCell.classList.add('py-3', 'px-4', 'border-b');
+                scoreCell.textContent = item.total_score;
+                row.appendChild(scoreCell);
+
+                leaderboard.appendChild(row);
+            });
+        }
+
+        // Call the function to populate leaderboard on page load
+        
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            const timerElement = document.getElementById("timer");
+            const startDateTime = new Date(timerElement.getAttribute("data-start")).getTime();
+            const endDateTime = new Date(timerElement.getAttribute("data-end")).getTime();
+
+            // Update the count down every 1 second
+            const x = setInterval(function() {
+
+                // Get current date and time
+                const now = new Date().getTime();
+
+                // Find the time remaining until the start and end
+                const distanceToStart = startDateTime - now;
+                const distanceToEnd = endDateTime - now;
+
+                // Determine whether the contest is upcoming, ongoing, or ended
+                let timerText = "";
+                if (distanceToStart > 0) {
+                    // Contest has not started yet
+                    const days = Math.floor(distanceToStart / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distanceToStart % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distanceToStart % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distanceToStart % (1000 * 60)) / 1000);
+                    timerText = `Contest starts in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                } else if (distanceToEnd > 0) {
+                    // Contest is ongoing
+                    const days = Math.floor(distanceToEnd / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distanceToEnd % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distanceToEnd % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distanceToEnd % (1000 * 60)) / 1000);
+                    timerText = `Contest ends in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                } else {
+                    // Contest has ended
+                    timerText = "The contest has ended";
+                    clearInterval(x);
+                }
+
+                // Output the result in an element with id="timer"
+                timerElement.innerHTML = timerText;
+
+            }, 1000);
+        });
+    </script>
+
+</body>
+</html>

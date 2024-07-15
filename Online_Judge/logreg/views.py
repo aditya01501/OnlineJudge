@@ -50,3 +50,8 @@ def Login(request):
 def Logout(request):
     logout(request)
     return redirect('/login/login')
+
+def Profile(request):
+    print("hit")
+    context = {"user" : request.user}
+    return render(request, 'profilepage.html', context=context)

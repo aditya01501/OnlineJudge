@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contest Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body class="bg-purple-950 text-white">
+    <nav class="bg-purple-800 text-white flex justify-between items-center p-4">
+        <div class="flex items-center pl-5 font-bold">
+            <img src="contest_logo.png" class="h-10" alt="Contest Logo">
+        </div>
+        <ul class="flex space-x-11 justify-end items-center pr-10">
+            <li class="hover:cursor-pointer hover:text-blue-400">Home</li>
+            <li class="hover:cursor-pointer hover:text-blue-400">About</li>
+            <li class="hover:cursor-pointer hover:text-blue-400">Contests</li>
+        </ul>
+    </nav>
+
+    <div class="max-w-4xl mx-auto mt-10 bg-purple-600 p-6 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold mb-4 text-white">{{ Contest.Name }}</h1>
+        <p class="mb-4"><strong>Date:</strong> {{ Contest.start_time }}</p>
+        <p class="mb-4"><strong>Duration:</strong> {{ Contest.end_time }} </p>
+        <p class="mb-4"><strong>Description:</strong> {{ Contest.description }}</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4 text-white">Problems</h2>
+        <ul class="list-disc list-inside mb-6">
+            {% for problem in Contest.Questions.all %}
+                <li class="hover:text-blue-400 mb-2">
+                    <a href="http://127.0.0.1:8000/contest/{{Contest.pk}}/{{ problem.pk }}" class="text-white hover:underline">{{ problem.Name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        
+        <meta name="csrf-token" content="{{ csrf_token }}">
+
+        <div class="flex justify-center">
+            <a href="/Leaderboard/{{Contest.pk}}" class="bg-blue-600 text-white py-2 px-4 mx-2 rounded-lg hover:bg-blue-500 transition">
+                View Leaderboard
+            </a>
+            <button class="bg-blue-600 text-white py-2 px-4 mx-2 rounded-lg hover:bg-blue-500 transition" id = "RegisterButton">
+                Register
+            </button>
+        </div>
+        
+    </div>
+</body>
+<script>
+    const registerbtn = document.getElementById('RegisterButton');
+
+    registerbtn.addEventListener('click', function() {    
+        const contestId = '{{ Contest.pk }}'; // Ensure these values are correctly rendered by your backend
+        const user = '{{ User.pk }}'; // Ensure these values are correctly rendered by your backend
+    
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    
+        $.ajax({
+            url: 'http://127.0.0.1:8000/contest/register', // Update with your URL
+            type: "POST",
+            data: JSON.stringify({
+                contestId: contestId,
+                user: user,
+            }),
+            contentType: 'application/json', // Fix the typo here
+            headers: {
+                'X-CSRFToken': csrfToken
+            },
+            beforeSend: function() {
+            },
+            success: function(response) {
+            },
+            error: function(xhr, status, error) {
+                console.log(status);
+                console.log(error);
+            }
+        });
+    });
+    
+</script>
+<script>
+    $(document).ready(function() {
+        const timerElement = document.getElementById("timer");
+        const startDateTime = new Date(timerElement.getAttribute("data-start")).getTime();
+        const endDateTime = new Date(timerElement.getAttribute("data-end")).getTime();
+
+        // Update the count down every 1 second
+        const x = setInterval(function() {
+
+            // Get current date and time
+            const now = new Date().getTime();
+
+            // Find the time remaining until the start and end
+            const distanceToStart = startDateTime - now;
+            const distanceToEnd = endDateTime - now;
+
+            // Determine whether the contest is upcoming, ongoing, or ended
+            let timerText = "";
+            if (distanceToStart > 0) {
+                // Contest has not started yet
+                const days = Math.floor(distanceToStart / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distanceToStart % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distanceToStart % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distanceToStart % (1000 * 60)) / 1000);
+                timerText = `Contest starts in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            } else if (distanceToEnd > 0) {
+                // Contest is ongoing
+                const days = Math.floor(distanceToEnd / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distanceToEnd % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distanceToEnd % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distanceToEnd % (1000 * 60)) / 1000);
+                timerText = `Contest ends in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            } else {
+                // Contest has ended
+                timerText = "The contest has ended";
+                clearInterval(x);
+            }
+
+            // Output the result in an element with id="timer"
+            timerElement.innerHTML = timerText;
+
+        }, 1000);
+    });
+</script>
+
+</html>
+

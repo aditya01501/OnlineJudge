@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-blue-800 text-white flex justify-between p-4">
+        <div class="flex items-center pl-5 font-bold">
+            <img src="user_logo.png" class="h-10" alt="User Logo">
+        </div>
+        <ul class="flex space-x-11 justify-end items-center pr-10">
+            <li class="hover:cursor-pointer hover:text-blue-400">Home</li>
+            <li class="hover:cursor-pointer hover:text-blue-400">Profile</li>
+            <li class="hover:cursor-pointer hover:text-blue-400">Settings</li>
+        </ul>
+    </nav>
+
+    <div class="max-w-4xl mx-auto mt-10 bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold mb-4">{{ user.username }}</h1>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Joined:</strong> {{ user.date_joined }}</p>
+        <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+
+        <h2 class="text-2xl font-bold mt-8 mb-4">Recent Activities</h2>
+        <ul class="list-disc list-inside">
+            {% for activity in activities %}
+                <li>
+                    <p>{{ activity.description }}</p>
+                    <p><strong>Date:</strong> {{ activity.date }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

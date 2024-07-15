@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-purple-950 text-white">
+    <nav class="bg-purple-800 text-white flex justify-between items-center p-4">
+        <div class="flex items-center font-bold">
+            <img src="p&p.png" class="h-10" alt="Logo">
+            <span class="pl-5">Your Logo</span>
+        </div>
+        <ul class="flex space-x-8">
+            <li class="hover:cursor-pointer hover:text-purple-950">Home</li>
+            <li class="hover:cursor-pointer hover:text-purple-950">About</li>
+            <li class="hover:cursor-pointer hover:text-purple-950">Name</li>
+        </ul>
+    </nav>
+
+     <div class="flex justify-center items-center mt-10">
+        <table class="table-auto w-3/4 text-center text-xl bg-purple-800 rounded-lg">
+            <thead>
+                <tr class = "border-b rounded">
+                    <th></th>
+                    <th class="border-white">Contest Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <th class="py-3 px-4 border-b border-white">Rank</th>
+                    <th class="py-3 px-4 border-b border-white">Name</th>
+                    <th class="py-3 px-4 border-b border-white">Score</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard">
+                <!-- Rows will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Example data for leaderboard, replace with your data fetching logic
+        const leaderboardData = [
+            { rank: 1, name: "Alice", score: 98 },
+            { rank: 2, name: "Bob", score: 96 },
+            { rank: 3, name: "Charlie", score: 94 },
+        ];
+
+        function populateLeaderboard(data) {
+            const leaderboard = document.getElementById('leaderboard');
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.classList.add('hover:bg-purple-700');
+
+                const rankCell = document.createElement('td');
+                rankCell.classList.add('py-3', 'px-4', 'border-b', 'border-white');
+                rankCell.textContent = item.rank;
+                row.appendChild(rankCell);
+
+                const nameCell = document.createElement('td');
+                nameCell.classList.add('py-3', 'px-4', 'border-b', 'border-white');
+                nameCell.textContent = item.name;
+                row.appendChild(nameCell);
+
+                const scoreCell = document.createElement('td');
+                scoreCell.classList.add('py-3', 'px-4', 'border-b', 'border-white');
+                scoreCell.textContent = item.score;
+                row.appendChild(scoreCell);
+
+                leaderboard.appendChild(row);
+            });
+        }
+
+        // Call the function to populate leaderboard on page load
+        populateLeaderboard(leaderboardData);
+    </script>
+</body>
+</html>

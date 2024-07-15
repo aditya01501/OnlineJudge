@@ -121,7 +121,7 @@
     <div class = "h-lvh flex justify-center items-center">
     <form class="form h-3/6 w-9/12" method = "post">
       <div class="title">Hello!,<br><span>sign up to continue</span></div>
-      <!-- {% csrf_token %} -->
+      {% csrf_token %} 
       <input type="text" placeholder="Username" name="username" class="input">
       <input type="password" placeholder="Password" name="password" class="input">
       <div class="login-with">
